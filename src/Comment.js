@@ -1,7 +1,11 @@
 import React from 'react'
 
 const Comment = ({ c }) => {
-    return <div>{c.comment}</div>
+    let comment = 'vazio'
+    if(c && c.comment){
+        comment =  c.comment
+    }
+    return <div>{comment}</div>
 }
 
 export default Comment
