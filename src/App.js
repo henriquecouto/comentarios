@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import Comments from './Comments'
 import NewComment from './NewComment'
+import Login from './Login'
 
-import { database } from './firebase'
+import { database, auth } from './firebase'
 
 class App extends Component {
 
   state = {
     comments: {},
-    isLoading: false
+    isLoading: false,
+    isAuth: false,
+    isAuthError: false,
+    authError: '',
+    user: ''
   }
 
   addComment = comment => {
@@ -25,21 +30,55 @@ class App extends Component {
     // })
   }
 
+  login = async(email, passwd) => {
+    this.setState({
+      authError: '',
+      isAuthError: false
+    })
+    try{
+      const user = await auth.signInWithEmailAndPassword(email, passwd)
+    }catch(err){
+      window.alert('Email ou senha inválidos!')
+      this.setState({
+        authError: err.code,
+        isAuthError: true
+      })  
+    }
+  }
+
   componentDidMount(){
     this.setState({ isLoading: true })
     this.comments = database.ref('comments')
     this.comments.on('value', snapshot => {
       this.setState({ 
-        comments: snapshot.val(), 
+        comments: snapshot.val() , 
         isLoading: false
       })  
+    })
+
+    auth.onAuthStateChanged(user => {
+      if(user){
+        this.setState({
+          isAuth: true,
+          user
+        })
+      }
     })
   }
 
   render() {
     return (
       <React.Fragment>
+
+      {
+        !this.state.isAuth && <Login login={this.login} />
+      }
+
+      {
+        this.state.isAuth &&
         <NewComment addComment={this.addComment} />
+      }
+      <br></br>
         <Comments comments={this.state.comments} />
         {
           this.state.isLoading && <p>Carregando...</p>

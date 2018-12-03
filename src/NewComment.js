@@ -22,6 +22,7 @@ class NewComment extends Component {
     render(){
         return(
             <div>
+                <h3>Comentar</h3>
                 <textarea value={this.state.newComment} onChange={this.newComment}></textarea>
                 <button onClick={this.addComment}>Enviar</button>
             </div>
