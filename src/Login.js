@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 class Login extends Component {
 
@@ -17,16 +17,29 @@ class Login extends Component {
         this.props.login(this.state.email, this.state.passwd)
     }
 
-    render(){
+    render() {
+        const errorMessages = {
+            'auth/wrong-password': 'Sua senha está incorreta, tente novamente!',
+            'auth/user-not-found': 'E-mail não cadastrado!',
+            'auth/invalid-email': 'O e-mail não é válido'
+        }
         return (
             <div>
-            <h3>Login</h3>
-            
-            <input placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input> 
-            <input placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
-            
-            <button type='button' onClick={this.login} >Entrar</button>
-            
+                <h3>Login</h3>
+
+                <input placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
+                <input placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
+
+                <button type='button' onClick={
+                    this.login
+                } >Entrar</button>
+
+                {
+                    this.props.isAuthError &&
+                    <p>
+                        <b>Erro: </b>{(errorMessages[this.props.authError])}
+                    </p>
+                }
             </div>
         )
     }

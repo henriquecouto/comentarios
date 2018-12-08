@@ -41,7 +41,6 @@ class App extends Component {
     try {
       const user = await auth.signInWithEmailAndPassword(email, passwd)
     } catch (err) {
-      window.alert('Email ou senha inválidos!')
       this.setState({
         authError: err.code,
         isAuthError: true
@@ -84,7 +83,7 @@ class App extends Component {
 
         {this.state.isAuth && <User email={this.state.user.email} logout={this.logout} />}
 
-        {!this.state.isAuth && <Login login={this.login} />}
+        {!this.state.isAuth && <Login login={this.login} isAuthError={this.state.isAuthError} authError={this.state.authError} />}
 
         {this.state.isAuth && <NewComment addComment={this.addComment} />}
 
