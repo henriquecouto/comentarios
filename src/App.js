@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Comments from './Comments'
 import NewComment from './NewComment'
 import Login from './Login'
+import User from './User'
 
 import { database, auth } from './firebase'
 
@@ -13,14 +14,16 @@ class App extends Component {
     isAuth: false,
     isAuthError: false,
     authError: '',
-    user: ''
+    user: {}
   }
 
   addComment = comment => {
     const id = database.ref().child('comments').push().key
     const comments = {}
-    comments['comments/'+id] = {
-      comment
+    comments['comments/' + id] = {
+      comment,
+      email: this.state.user.email,
+      userid: this.state.user.uid
     }
     database.ref().update(comments)
 
@@ -30,59 +33,64 @@ class App extends Component {
     // })
   }
 
-  login = async(email, passwd) => {
+  login = async (email, passwd) => {
     this.setState({
       authError: '',
       isAuthError: false
     })
-    try{
+    try {
       const user = await auth.signInWithEmailAndPassword(email, passwd)
-    }catch(err){
+    } catch (err) {
       window.alert('Email ou senha inválidos!')
       this.setState({
         authError: err.code,
         isAuthError: true
-      })  
+      })
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.setState({ isLoading: true })
     this.comments = database.ref('comments')
     this.comments.on('value', snapshot => {
-      this.setState({ 
-        comments: snapshot.val() , 
+      this.setState({
+        comments: snapshot.val(),
         isLoading: false
-      })  
+      })
     })
 
     auth.onAuthStateChanged(user => {
-      if(user){
+      if (user) {
         this.setState({
           isAuth: true,
           user
         })
+      }else{
+        this.setState({
+          isAuth: false,
+          user: {}
+        })
       }
     })
+  }
+
+  logout = () => {
+    auth.signOut()
   }
 
   render() {
     return (
       <React.Fragment>
 
-      {
-        !this.state.isAuth && <Login login={this.login} />
-      }
+        {this.state.isAuth && <User email={this.state.user.email} logout={this.logout} />}
 
-      {
-        this.state.isAuth &&
-        <NewComment addComment={this.addComment} />
-      }
-      <br></br>
+        {!this.state.isAuth && <Login login={this.login} />}
+
+        {this.state.isAuth && <NewComment addComment={this.addComment} />}
+
+        <br></br>
         <Comments comments={this.state.comments} />
-        {
-          this.state.isLoading && <p>Carregando...</p>
-        }
+        {this.state.isLoading && <p>Carregando...</p>}
       </React.Fragment>
     )
   }

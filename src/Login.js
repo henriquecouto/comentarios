@@ -26,7 +26,7 @@ class Login extends Component {
             <input placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
             
             <button type='button' onClick={this.login} >Entrar</button>
-
+            
             </div>
         )
     }
