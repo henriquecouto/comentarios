@@ -26,21 +26,24 @@ class SignUp extends Component {
         return (
             <div>
                 <h3>Criar conta</h3>
+                <form className='form-inline'>
+                    <input className='form-control mr-2' placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
+                    <input className='form-control mr-2' placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
 
-                <input placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
-                <input placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
-
-                <button type='button' onClick={this.createAccount}   >Cadastrar</button>
-                <button onClick={() => this.props.changeButton('login')} >Já tenho uma conta! Desejo entrar</button>
-
+                    <button type='button' onClick={this.createAccount} className='btn btn-primary mr-2' >Cadastrar</button>
+                    <button onClick={() => this.props.changeButton('login')} className='btn mr-2' >Quero entrar!</button>
+                </form>
                 {
                     this.props.isSignUpError &&
-                    <p>
-                        <b>Erro: </b>{(errorMessages[this.props.signUpError])}
-                    </p>
+                    <div className='mt-4 card text-white bg-danger'>
+                        <div className='card-header'>
+                            <b>Erro ao Cadastrar:</b>
+                        </div>
+                        <div className='card-body'>
+                            {(errorMessages[this.props.signUpError])}
+                        </div>
+                    </div>
                 }
-
-
             </div>
         )
     }

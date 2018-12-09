@@ -4,6 +4,7 @@ import NewComment from './NewComment'
 import Login from './Login'
 import SignUp from './SignUp'
 import User from './User'
+import 'bootstrap-css-only'
 
 import { database, auth } from './firebase'
 
@@ -18,7 +19,7 @@ class App extends Component {
     isSignUpError: false,
     signUpError: '',
     user: {},
-    userScreen: 'signup' //signup
+    userScreen: 'login'
   }
 
   addComment = comment => {
@@ -98,26 +99,30 @@ class App extends Component {
 
   changeButton = value => {
     this.setState({
-      userScreen:value
+      userScreen: value,
+      isAuthError: false,
+      authError: '',
+      isSignUpError: false,
+      signUpError: ''
     })
   }
 
   render() {
     return (
-      <React.Fragment>
+      <div className='container mt-4'>
 
         {this.state.isAuth && <User email={this.state.user.email} logout={this.logout} />}
 
         {
           !this.state.isAuth &&
           this.state.userScreen === 'login' &&
-          <Login login={this.login} isAuthError={this.state.isAuthError} authError={this.state.authError} changeButton={this.changeButton} /> 
+          <Login login={this.login} isAuthError={this.state.isAuthError} authError={this.state.authError} changeButton={this.changeButton} />
         }
 
         {
           !this.state.isAuth &&
           this.state.userScreen === 'signup' &&
-          <SignUp createAccount={this.createAccount} isSignUpError={this.state.isSignUpError} signUpError={this.state.signUpError} changeButton={this.changeButton} /> 
+          <SignUp createAccount={this.createAccount} isSignUpError={this.state.isSignUpError} signUpError={this.state.signUpError} changeButton={this.changeButton} />
         }
 
         {this.state.isAuth && <NewComment addComment={this.addComment} />}
@@ -125,7 +130,7 @@ class App extends Component {
         <br></br>
         <Comments comments={this.state.comments} />
         {this.state.isLoading && <p>Carregando...</p>}
-      </React.Fragment>
+      </div>
     )
   }
 }
