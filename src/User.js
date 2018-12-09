@@ -2,9 +2,11 @@ import React from 'react'
 
 const user = props => {
     return (
-        <div>
+        <div className='card'>
+            <div className='card-body bg-dark text-white'>
             Logado como: {props.email}
-            <button onClick={props.logout}>Sair</button>
+            <button className='btn ml-2' onClick={props.logout}>Sair</button>
+            </div>
         </div>
     )
 }

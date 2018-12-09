@@ -25,14 +25,22 @@ class SignUp extends Component {
         }
         return (
             <div>
-                <h3>Criar conta</h3>
-                <form className='form-inline'>
-                    <input className='form-control mr-2' placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
-                    <input className='form-control mr-2' placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
+                <div className='card'>
+                <div className='card-header'>
 
-                    <button type='button' onClick={this.createAccount} className='btn btn-primary mr-2' >Cadastrar</button>
-                    <button onClick={() => this.props.changeButton('login')} className='btn mr-2' >Quero entrar!</button>
+                <h3>Criar conta</h3>
+                </div>
+                <div className='card-body'>
+
+                <form className='form-inline'>
+                    <input className='form-control mr-2 mt-2' placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
+                    <input className='form-control mr-2 mt-2' placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
+
+                    <button type='button' onClick={this.createAccount} className='btn btn-primary mr-2 mt-2' >Cadastrar</button>
+                    <button onClick={() => this.props.changeButton('login')} className='btn mr-2 mt-2' >Quero entrar!</button>
                 </form>
+                </div>
+                </div>
                 {
                     this.props.isSignUpError &&
                     <div className='mt-4 card text-white bg-danger'>

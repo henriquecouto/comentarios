@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 class NewComment extends Component {
 
@@ -8,7 +8,7 @@ class NewComment extends Component {
 
     newComment = event => {
         this.setState({
-          newComment: event.target.value
+            newComment: event.target.value
         })
     }
 
@@ -19,12 +19,18 @@ class NewComment extends Component {
         })
     }
 
-    render(){
-        return(
-            <div>
-                <h3>Comentar</h3>
-                <textarea value={this.state.newComment} onChange={this.newComment}></textarea>
-                <button onClick={this.addComment}>Enviar</button>
+    render() {
+        return (
+            <div className='card mt-2'>
+                <div className='card-header'>
+                    <h3>Comentar</h3>
+                </div>
+                <div className='card-body'>
+                    <form className='form-inline'>
+                        <textarea className='form-control mr-2' value={this.state.newComment} onChange={this.newComment}></textarea>
+                        <button className='btn btn-primary' onClick={this.addComment}>Enviar</button>
+                    </form>
+                </div>
             </div>
         )
     }

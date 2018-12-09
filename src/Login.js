@@ -25,14 +25,22 @@ class Login extends Component {
         }
         return (
             <div>
-                <h3>Entre para comentar: </h3>
-                <form className='form-inline'>
-                    <input className='form-control mr-2' placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
-                    <input className='form-control mr-2' placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
+                <div className='card'>
+                <div className='card-header'>
 
-                    <button type='button' onClick={this.login} className='btn btn-primary mr-2' >Entrar</button>
-                    <button onClick={() => this.props.changeButton('signup')} className='btn mr-2'>Quero me cadastrar!</button>
+                <h3>Entre para comentar: </h3>
+                </div>
+                <div className='card-body'>
+
+                <form className='form-inline'>
+                    <input className='form-control mr-2 mt-2' placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
+                    <input className='form-control mr-2 mt-2' placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
+
+                    <button type='button' onClick={this.login} className='btn btn-primary mr-2 mt-2' >Entrar</button>
+                    <button onClick={() => this.props.changeButton('signup')} className='btn mr-2 mt-2'>Quero me cadastrar!</button>
                 </form>
+                </div>
+                </div>
                 {
                     this.props.isAuthError &&
                     <div className='mt-4 card text-white bg-danger'>
