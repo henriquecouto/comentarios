@@ -29,7 +29,7 @@ class NewComment extends Component {
                 <div className='card-body'>
                     <form className='form-inline'>
                         <textarea className='form-control mr-2' value={this.state.newComment} onChange={this.newComment}></textarea>
-                        <button className='btn btn-primary' onClick={this.addComment}>Enviar</button>
+                        <button className='btn btn-primary mt-2' onClick={this.addComment}>Enviar</button>
                     </form>
                 </div>
             </div>
