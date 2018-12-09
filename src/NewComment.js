@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import 'bootstrap-css-only'
 
 class NewComment extends Component {
 

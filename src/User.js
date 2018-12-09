@@ -1,4 +1,5 @@
 import React from 'react'
+import 'bootstrap-css-only'
 
 const user = props => {
     return (
