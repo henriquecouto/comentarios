@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Login extends Component {
+class SignUp extends Component {
 
     state = {
         email: '',
@@ -13,8 +13,8 @@ class Login extends Component {
         })
     }
 
-    login = () => {
-        this.props.login(this.state.email, this.state.passwd)
+    createAccount = () => {
+        this.props.createAccount(this.state.email, this.state.passwd)
     }
 
     render() {
@@ -25,14 +25,12 @@ class Login extends Component {
         }
         return (
             <div>
-                <h3>Login</h3>
+                <h3>Criar conta</h3>
 
                 <input placeholder="Email..." type="text" onChange={this.handleChange('email')} ></input>
                 <input placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
 
-                <button type='button' onClick={
-                    this.login
-                } >Entrar</button>
+                <button type='button' onClick={this.createAccount}   >Cadastrar</button>
 
                 {
                     this.props.isAuthError &&
@@ -41,10 +39,11 @@ class Login extends Component {
                     </p>
                 }
 
-                {<button onClick={() => this.props.changeButton('signup')} >Ainda não tenho uma conta! Quero me cadastrar</button>}
+                {<button onClick={() => this.props.changeButton('login')} >Já tenho uma conta! Desejo entrar</button>}
+
             </div>
         )
     }
 }
 
-export default Login
+export default SignUp

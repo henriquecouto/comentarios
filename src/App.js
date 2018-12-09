@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Comments from './Comments'
 import NewComment from './NewComment'
 import Login from './Login'
+import SignUp from './SignUp'
 import User from './User'
 
 import { database, auth } from './firebase'
@@ -14,7 +15,8 @@ class App extends Component {
     isAuth: false,
     isAuthError: false,
     authError: '',
-    user: {}
+    user: {},
+    userScreen: 'signup' //signup
   }
 
   addComment = comment => {
@@ -64,7 +66,7 @@ class App extends Component {
           isAuth: true,
           user
         })
-      }else{
+      } else {
         this.setState({
           isAuth: false,
           user: {}
@@ -77,13 +79,29 @@ class App extends Component {
     auth.signOut()
   }
 
+  changeButton = value => {
+    this.setState({
+      userScreen:value
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
 
         {this.state.isAuth && <User email={this.state.user.email} logout={this.logout} />}
 
-        {!this.state.isAuth && <Login login={this.login} isAuthError={this.state.isAuthError} authError={this.state.authError} />}
+        {
+          !this.state.isAuth &&
+          this.state.userScreen === 'login' &&
+          <Login login={this.login} isAuthError={this.state.isAuthError} authError={this.state.authError} changeButton={this.changeButton} /> 
+        }
+
+        {
+          !this.state.isAuth &&
+          this.state.userScreen === 'signup' &&
+          <SignUp createAccount={this.login} isSignUpError={this.state.isSignUpError} signUpError={this.state.signUpError} changeButton={this.changeButton} /> 
+        }
 
         {this.state.isAuth && <NewComment addComment={this.addComment} />}
 
