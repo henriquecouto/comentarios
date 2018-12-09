@@ -33,15 +33,15 @@ class Login extends Component {
                 <button type='button' onClick={
                     this.login
                 } >Entrar</button>
+                <button onClick={() => this.props.changeButton('signup')} >Ainda não tenho uma conta! Quero me cadastrar</button>
 
                 {
                     this.props.isAuthError &&
                     <p>
-                        <b>Erro: </b>{(errorMessages['this.props.authError'])}
+                        <b>Erro: </b>{(errorMessages[this.props.authError])}
                     </p>
                 }
 
-                {<button onClick={() => this.props.changeButton('signup')} >Ainda não tenho uma conta! Quero me cadastrar</button>}
             </div>
         )
     }

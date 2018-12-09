@@ -15,6 +15,8 @@ class App extends Component {
     isAuth: false,
     isAuthError: false,
     authError: '',
+    isSignUpError: false,
+    signUpError: '',
     user: {},
     userScreen: 'signup' //signup
   }
@@ -41,11 +43,26 @@ class App extends Component {
       isAuthError: false
     })
     try {
-      const user = await auth.signInWithEmailAndPassword(email, passwd)
+      await auth.signInWithEmailAndPassword(email, passwd)
     } catch (err) {
       this.setState({
         authError: err.code,
         isAuthError: true
+      })
+    }
+  }
+
+  createAccount = async (email, passwd) => {
+    this.setState({
+      signUpError: '',
+      isSignUpError: false
+    })
+    try {
+      await auth.createUserWithEmailAndPassword(email, passwd)
+    } catch (err) {
+      this.setState({
+        signUpError: err.code,
+        isSignUpError: true
       })
     }
   }
@@ -100,7 +117,7 @@ class App extends Component {
         {
           !this.state.isAuth &&
           this.state.userScreen === 'signup' &&
-          <SignUp createAccount={this.login} isSignUpError={this.state.isSignUpError} signUpError={this.state.signUpError} changeButton={this.changeButton} /> 
+          <SignUp createAccount={this.createAccount} isSignUpError={this.state.isSignUpError} signUpError={this.state.signUpError} changeButton={this.changeButton} /> 
         }
 
         {this.state.isAuth && <NewComment addComment={this.addComment} />}

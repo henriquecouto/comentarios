@@ -19,8 +19,8 @@ class SignUp extends Component {
 
     render() {
         const errorMessages = {
-            'auth/wrong-password': 'Sua senha está incorreta, tente novamente!',
-            'auth/user-not-found': 'E-mail não cadastrado!',
+            'auth/email-already-in-use': 'O e-mail já está em uso!',
+            'auth/weak-password': 'Sua senha está muito fraca!',
             'auth/invalid-email': 'O e-mail não é válido'
         }
         return (
@@ -31,15 +31,15 @@ class SignUp extends Component {
                 <input placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
 
                 <button type='button' onClick={this.createAccount}   >Cadastrar</button>
+                <button onClick={() => this.props.changeButton('login')} >Já tenho uma conta! Desejo entrar</button>
 
                 {
-                    this.props.isAuthError &&
+                    this.props.isSignUpError &&
                     <p>
-                        <b>Erro: </b>{(errorMessages['this.props.authError'])}
+                        <b>Erro: </b>{(errorMessages[this.props.signUpError])}
                     </p>
                 }
 
-                {<button onClick={() => this.props.changeButton('login')} >Já tenho uma conta! Desejo entrar</button>}
 
             </div>
         )
