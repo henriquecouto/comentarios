@@ -28,14 +28,11 @@ class App extends Component {
     comments['comments/' + id] = {
       comment,
       email: this.state.user.email,
-      userid: this.state.user.uid
+      userid: this.state.user.uid,
+      commentid: id
     }
     database.ref().update(comments)
 
-    // antes do firebase
-    // this.setState({
-    //   comments: [...this.state.comments, comment],
-    // })
   }
 
   login = async (email, passwd) => {
@@ -107,6 +104,10 @@ class App extends Component {
     })
   }
 
+  deleteComment = commentid => event =>{
+    console.log('deletar comentário', commentid)
+  }
+
   render() {
     return (
       <div className='container mt-4'>
@@ -128,7 +129,10 @@ class App extends Component {
         {this.state.isAuth && <NewComment addComment={this.addComment} />}
 
         <br></br>
-        <Comments comments={this.state.comments} />
+        {
+          this.state.isAuth &&
+          <Comments comments={this.state.comments} user={this.state.user} deleteComment={this.deleteComment} /> 
+        }
         {this.state.isLoading && <p>Carregando...</p>}
       </div>
     )
