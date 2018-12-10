@@ -32,7 +32,10 @@ class App extends Component {
       commentid: id
     }
     database.ref().update(comments)
+  }
 
+  deleteComment = commentid => event => {
+    database.ref('/comments').child(commentid).remove()
   }
 
   login = async (email, passwd) => {
@@ -104,10 +107,6 @@ class App extends Component {
     })
   }
 
-  deleteComment = commentid => event =>{
-    console.log('deletar comentário', commentid)
-  }
-
   render() {
     return (
       <div className='container mt-4'>
@@ -131,7 +130,7 @@ class App extends Component {
         <br></br>
         {
           this.state.isAuth &&
-          <Comments comments={this.state.comments} user={this.state.user} deleteComment={this.deleteComment} /> 
+          <Comments comments={this.state.comments} user={this.state.user} deleteComment={this.deleteComment} />
         }
         {this.state.isLoading && <p>Carregando...</p>}
       </div>
