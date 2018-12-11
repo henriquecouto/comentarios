@@ -24,6 +24,7 @@ class Comment extends React.Component {
                     this.props.c.userid === this.props.u.uid &&
                     <div className='card-footer'>
                         <button
+                            type='button'
                             className='btn bg-danger text-white'
                             onClick={this.props.d(this.props.c.commentid)}
                         >

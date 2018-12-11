@@ -38,7 +38,7 @@ class Login extends Component {
                     <input className='form-control mr-2 mt-2' placeholder="Senha..." type='password' onChange={this.handleChange('passwd')} ></input>
 
                     <button type='button' onClick={this.login} className='btn btn-primary mr-2 mt-2' >Entrar</button>
-                    <button onClick={() => this.props.changeButton('signup')} className='btn mr-2 mt-2'>Quero me cadastrar!</button>
+                    <button type='button' onClick={() => this.props.changeButton('signup')} className='btn mr-2 mt-2'>Quero me cadastrar!</button>
                 </form>
                 </div>
                 </div>
