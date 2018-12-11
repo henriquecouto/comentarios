@@ -19,19 +19,17 @@ class App extends Component {
     isSignUpError: false,
     signUpError: '',
     user: {},
-    userScreen: 'login'
+    userScreen: 'login',
   }
 
   addComment = comment => {
     const id = database.ref().child('comments').push().key
-    const comments = {}
-    comments['comments/' + id] = {
+    database.ref('/comments/' + id).set({
       comment,
       email: this.state.user.email,
       userid: this.state.user.uid,
       commentid: id
-    }
-    database.ref().update(comments)
+    })
   }
 
   deleteComment = commentid => event => {
