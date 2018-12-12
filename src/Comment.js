@@ -2,6 +2,9 @@ import React from 'react'
 import 'bootstrap-css-only'
 
 class Comment extends React.Component {
+    state = {
+        show: false
+    }
     render() {
 
         let comment = 'vazio'
@@ -23,15 +26,31 @@ class Comment extends React.Component {
                 {
                     this.props.c.userid === this.props.u.uid &&
                     <div className='card-footer'>
-                        <button
+                        {!this.state.show && <button
                             type='button'
                             className='btn bg-danger text-white'
-                            onClick={this.props.d(this.props.c.commentid)}
+                            // onClick={this.props.d(this.props.c.commentid)}
+                            onClick={() => this.setState({
+                                show: true
+                            })}
                         >
                             Excluir
-                    </button>
+                        </button>}
+                        {this.state.show && 
+                            <div>
+                                <p>Certeza que deseja excluir este comentário?</p>
+                                <button className='btn bg-danger text-white mr-2' onClick={this.props.d(this.props.c.commentid)}>
+                                    Sim
+                                </button>
+                                <button className='btn btn-primary' onClick={() => this.setState({
+                                    show: false
+                                })}>
+                                    Não
+                                </button>
+                            </div>}
                     </div>
                 }
+
             </div>
         )
     }
