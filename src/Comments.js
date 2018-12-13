@@ -6,7 +6,7 @@ import Comment from './Comment'
 class Comments extends React.Component {
 
     render() {
-        const keys = Object.keys(this.props.comments)
+        let keys = Object.keys(this.props.comments).reverse()
         return (
             <div>
                 {keys.map(key => <Comment key={key} c={this.props.comments[key]} u={this.props.user} d={this.props.deleteComment} />)}
