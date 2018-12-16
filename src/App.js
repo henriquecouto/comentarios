@@ -127,10 +127,12 @@ class App extends Component {
 
         <br></br>
         {
-          this.state.isAuth &&
+          this.state.isAuth && this.state.comments &&
           <Comments comments={this.state.comments} user={this.state.user} deleteComment={this.deleteComment} />
         }
-        {this.state.isLoading && <p>Carregando...</p>}
+        {this.state.isAuth && this.state.isLoading && <h5>Carregando...</h5>}
+        {this.state.isAuth && !this.state.comments && <h5>Seja o primeiro a comentar!</h5>}
+
       </div>
     )
   }
